@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>مولد رسالة RAFAL PAY</title>
+  <style>
+    body { font-family: sans-serif; background:#0b1220; color:#fff; display:flex; flex-direction:column; align-items:center; padding:20px; }
+    .card { max-width:700px; width:100%; background:#111827; border-radius:16px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,0.4); }
+    h1 { margin-top:0; text-align:center; }
+    label { display:block; margin:10px 0 5px; }
+    input[type="text"] { width:100%; padding:10px; border-radius:8px; border:1px solid #374151; background:#020617; color:#fff; }
+    textarea { width:100%; min-height:200px; margin-top:10px; padding:10px; border-radius:8px; border:1px solid #374151; background:#020617; color:#fff; }
+    button { margin-top:10px; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; }
+    .primary { background:#3b82f6; color:#fff; }
+    .small { font-size:12px; color:#9ca3af; margin-top:6px; }
+    img { max-width:100%; border-radius:12px; margin-bottom:15px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>رسالة دفع RAFAL PAY</h1>
+
+    <!-- هنا تحط صورة البنر لو حابب -->
+    <!-- <img src="rafalpay-banner.jpg" alt="RAFAL PAY Banner" /> -->
+
+    <label for="link">رابط الدفع:</label>
+    <input type="text" id="link" value="https://cube.paysky.io/?R=FtbJgA" />
+
+    <button class="primary" onclick="generate()">توليد الرسالة</button>
+
+    <label for="output">النص الجاهز (للنسخ):</label>
+    <textarea id="output" readonly></textarea>
+
+    <button onclick="copyText()">نسخ النص</button>
+    <div class="small">انسخ الرسالة وأرسلها مع صورة RAFAL PAY للعميل على واتساب.</div>
+  </div>
+
+  <script>
+    function generate() {
+      const link = document.getElementById('link').value.trim();
+      const msg = `
+حيّاكم الله في متجر RAFAL PAY 🤍
+
+نوفر لكم طرق دفع آمنة وسريعة ومتعددة:
+• PayPal
+• mada
+• Apple Pay
+• Visa
+• MasterCard
+
+لإتمام عملية الدفع يرجي الضغط على الرابط التالي:
+🔗 ${link}
+
+بعد الدفع فضلاً إرسال صورة الإيصال ليتم تفعيل خدمتك فورًا ✨
+نحن في خدمتك دائماً 🤝
+`.trim();
+      document.getElementById('output').value = msg;
+    }
+
+    function copyText() {
+      const ta = document.getElementById('output');
+      ta.select();
+      document.execCommand('copy');
+      alert('تم نسخ الرسالة ✅');
+    }
+
+    // توليد أولي عند فتح الصفحة
+    window.onload = generate;
+  </script>
+</body>
+</html>
