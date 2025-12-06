@@ -2,44 +2,132 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>مولد رسالة RAFAL PAY</title>
+  <title>RAFAL PAY - Pay Now</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body { font-family: sans-serif; background:#0b1220; color:#fff; display:flex; flex-direction:column; align-items:center; padding:20px; }
-    .card { max-width:700px; width:100%; background:#111827; border-radius:16px; padding:20px; box-shadow:0 10px 30px rgba(0,0,0,0.4); }
-    h1 { margin-top:0; text-align:center; }
-    label { display:block; margin:10px 0 5px; }
-    input[type="text"] { width:100%; padding:10px; border-radius:8px; border:1px solid #374151; background:#020617; color:#fff; }
-    textarea { width:100%; min-height:200px; margin-top:10px; padding:10px; border-radius:8px; border:1px solid #374151; background:#020617; color:#fff; }
-    button { margin-top:10px; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:bold; }
-    .primary { background:#3b82f6; color:#fff; }
-    .small { font-size:12px; color:#9ca3af; margin-top:6px; }
-    img { max-width:100%; border-radius:12px; margin-bottom:15px; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      width: 100%;
+      max-width: 800px;
+      background: #020617;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      border: 1px solid #1f2937;
+    }
+    .banner {
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      object-fit: cover;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 1.4rem;
+      text-align: center;
+      color: #f9fafb;
+    }
+    label {
+      display: block;
+      margin: 10px 0 4px;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      box-sizing: border-box;
+    }
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+    }
+    .btn-outline {
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+    }
+    .hint {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>رسالة دفع RAFAL PAY</h1>
+    <!-- غيّر مسار الصورة تحت لملف البانر عندك -->
+    <img src="rafalpay-banner.jpg" alt="RAFAL PAY Banner" class="banner" />
 
-    <!-- هنا تحط صورة البنر لو حابب -->
-    <!-- <img src="rafalpay-banner.jpg" alt="RAFAL PAY Banner" /> -->
+    <h1>مولّد رسالة الدفع – RAFAL PAY</h1>
 
-    <label for="link">رابط الدفع:</label>
-    <input type="text" id="link" value="https://cube.paysky.io/?R=FtbJgA" />
+    <label for="link">رابط الدفع (Paysky أو غيره):</label>
+    <input
+      type="text"
+      id="link"
+      value="https://cube.paysky.io/?R=FtbJgA"
+      placeholder="ضع هنا رابط الدفع للعميل"
+    />
 
-    <button class="primary" onclick="generate()">توليد الرسالة</button>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="generate()">توليد الرسالة</button>
+      <button class="btn-outline" onclick="copyMsg()">نسخ الرسالة</button>
+      <button class="btn-outline" onclick="copyLink()">نسخ الرابط فقط</button>
+    </div>
 
-    <label for="output">النص الجاهز (للنسخ):</label>
-    <textarea id="output" readonly></textarea>
+    <label for="msg">الرسالة الجاهزة (انسخها وأرسلها مع الصورة):</label>
+    <textarea id="msg" readonly></textarea>
 
-    <button onclick="copyText()">نسخ النص</button>
-    <div class="small">انسخ الرسالة وأرسلها مع صورة RAFAL PAY للعميل على واتساب.</div>
+    <div class="hint">
+      ◀ ابعت الصورة (البانر) + النص الجاهز للعميل على واتساب.<br>
+      كل مرة تغيّر الرابط فوق وتضغط "توليد الرسالة" فقط.
+    </div>
   </div>
 
   <script>
-    function generate() {
-      const link = document.getElementById('link').value.trim();
-      const msg = `
-حيّاكم الله في متجر RAFAL PAY 🤍
+    function makeMessage(link) {
+      return (
+`حيّاكم الله في متجر RAFAL PAY 🤍
 
 نوفر لكم طرق دفع آمنة وسريعة ومتعددة:
 • PayPal
@@ -48,23 +136,40 @@
 • Visa
 • MasterCard
 
-لإتمام عملية الدفع يرجي الضغط على الرابط التالي:
+لإتمام عملية الدفع يرجى الضغط على الرابط التالي:
 🔗 ${link}
 
 بعد الدفع فضلاً إرسال صورة الإيصال ليتم تفعيل خدمتك فورًا ✨
-نحن في خدمتك دائماً 🤝
-`.trim();
-      document.getElementById('output').value = msg;
+نحن في خدمتك دائماً 🤝`
+      );
     }
 
-    function copyText() {
-      const ta = document.getElementById('output');
+    function generate() {
+      const link = document.getElementById('link').value.trim();
+      const msgArea = document.getElementById('msg');
+      if (!link) {
+        alert('حط رابط الدفع الأول.');
+        return;
+      }
+      msgArea.value = makeMessage(link);
+    }
+
+    function copyMsg() {
+      const ta = document.getElementById('msg');
+      if (!ta.value) generate();
       ta.select();
       document.execCommand('copy');
       alert('تم نسخ الرسالة ✅');
     }
 
-    // توليد أولي عند فتح الصفحة
+    function copyLink() {
+      const linkInput = document.getElementById('link');
+      linkInput.select();
+      document.execCommand('copy');
+      alert('تم نسخ رابط الدفع ✅');
+    }
+
+    // توليد أول رسالة تلقائياً
     window.onload = generate;
   </script>
 </body>
